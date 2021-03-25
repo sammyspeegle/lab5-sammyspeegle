@@ -23,7 +23,6 @@ public class Main {
 
 
         while(fileReader.hasNextLine()){
-            System.out.println(fileReader.nextLine());
             evaluatePostfix(fileReader.nextLine());
         }
 
@@ -48,29 +47,45 @@ public class Main {
     }
 
     public static int evaluatePostfix(String expr){
-        /*Stack<String> s = new Stack<String>();
-        Stack<String> backup = new Stack<String>();
 
-       while(!s.isEmpty()){
-            System.out.println(s.pop());
-            backup.push(s.pop());
-        }
-
-        while (!backup.isEmpty()){
-            s.push(backup.pop());
-        }*/
-
-        Stack <String> myStack = new Stack<>();
+        Stack <Integer> myStack = new Stack<>();
         Scanner newScan = new Scanner(expr);
         int finalResult = 0;
 
-        System.out.println(newScan.next());
+        int value1 = 0;
+        int value2 = 0;
 
         while (newScan.hasNext()) {
-        myStack.push(newScan.next());
+
+            if(newScan.next().equals("+")){
+                value1 = myStack.pop();
+                value2 = myStack.pop();
+                finalResult = finalResult + value1 + value2;
+             }
+            if(newScan.next().equals("-")){
+                value1 = myStack.pop();
+                value2 = myStack.pop();
+                finalResult = finalResult + (value1 - value2);
+            }
+            if(newScan.next().equals("/")){
+                value1 = myStack.pop();
+                value2 = myStack.pop();
+                finalResult = finalResult + (value1/value2);
+            }
+            if(newScan.next().equals("*")){
+                value1 = myStack.pop();
+                value2 = myStack.pop();
+                finalResult = finalResult + (value1*value2);
+            }
+            else{
+                int num = Integer.parseInt(newScan.next());
+                myStack.push(num);
+                System.out.print(num);
+            }
+
+
+
         }
-
-
 
 
         return finalResult;
