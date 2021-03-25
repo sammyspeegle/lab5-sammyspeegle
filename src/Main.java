@@ -14,26 +14,34 @@ public class Main {
     public static void main(String [] args){
 
 
+        //scanner to file
         Scanner fileReader = openInputFile();
 
+        //queue
         Queue<Integer> qu = new LinkedList<Integer>();
 
+        //adding integers to queue
         qu.add(17);
         qu.add(24);
 
 
+        //calling the evaluate post fix when the file has nex line
         while(fileReader.hasNextLine()){
-            evaluatePostfix(fileReader.nextLine());
+         String line = fileReader.nextLine();
+         evaluatePostfix(line);
         }
 
+        //call stutter
         Stutter(qu);
 
     }
+
 
     static public Scanner openInputFile(){
         FileInputStream myFile = null;
         Scanner reader = null;
 
+        //try catch for opening file
         try {
             myFile = new FileInputStream("src/Postfixexperssions");
             reader = new Scanner (myFile);
@@ -48,6 +56,7 @@ public class Main {
 
     public static int evaluatePostfix(String expr){
 
+        //declare variables
         Stack <Integer> myStack = new Stack<>();
         Scanner newScan = new Scanner(expr);
         int finalResult = 0;
@@ -55,50 +64,53 @@ public class Main {
         int value1 = 0;
         int value2 = 0;
 
-        while (newScan.hasNext()) {
 
+            //executes operations
+            if(newScan.hasNextInt()){
+                int num = newScan.nextInt();
+                myStack.push(num);
+                System.out.println(num);
+             }
             if(newScan.next().equals("+")){
-                value1 = myStack.pop();
                 value2 = myStack.pop();
-                finalResult = finalResult + value1 + value2;
+                value1 = myStack.pop();
+                finalResult = finalResult + (value1 - value2);
+                myStack.push(finalResult);
              }
             if(newScan.next().equals("-")){
-                value1 = myStack.pop();
                 value2 = myStack.pop();
+                value1 = myStack.pop();
                 finalResult = finalResult + (value1 - value2);
+                myStack.push(finalResult);
             }
             if(newScan.next().equals("/")){
-                value1 = myStack.pop();
                 value2 = myStack.pop();
+                value1 = myStack.pop();
                 finalResult = finalResult + (value1/value2);
+                myStack.push(finalResult);
             }
             if(newScan.next().equals("*")){
-                value1 = myStack.pop();
                 value2 = myStack.pop();
+                value1 = myStack.pop();
                 finalResult = finalResult + (value1*value2);
-            }
-            else{
-                int num = Integer.parseInt(newScan.next());
-                myStack.push(num);
-                System.out.print(num);
+                myStack.push(finalResult);
+
             }
 
 
+            System.out.println(finalResult);
 
-        }
 
-
-        return finalResult;
+       return finalResult;
 
     }
 
 
     public static void Stutter(Queue<Integer>q){
 
-        System.out.println(q);
-
         int size = q.size();
 
+        //for loop that removes the first term and adds it back twice
         for (int i = 0; i<size; i++){
             int hello = q.remove();
             q.add(hello);
