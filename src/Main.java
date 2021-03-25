@@ -4,6 +4,7 @@ import java.util.Stack;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 
 
@@ -64,38 +65,42 @@ public class Main {
         int value1 = 0;
         int value2 = 0;
 
+while(newScan.hasNext()){
 
-            //executes operations
-            if(newScan.hasNextInt()){
-                int num = newScan.nextInt();
-                myStack.push(num);
-                System.out.println(num);
-             }
-            if(newScan.next().equals("+")){
-                value2 = myStack.pop();
-                value1 = myStack.pop();
-                finalResult = finalResult + (value1 - value2);
-                myStack.push(finalResult);
-             }
-            if(newScan.next().equals("-")){
-                value2 = myStack.pop();
-                value1 = myStack.pop();
-                finalResult = finalResult + (value1 - value2);
-                myStack.push(finalResult);
-            }
-            if(newScan.next().equals("/")){
-                value2 = myStack.pop();
-                value1 = myStack.pop();
-                finalResult = finalResult + (value1/value2);
-                myStack.push(finalResult);
-            }
-            if(newScan.next().equals("*")){
-                value2 = myStack.pop();
-                value1 = myStack.pop();
-                finalResult = finalResult + (value1*value2);
-                myStack.push(finalResult);
+    //executes operations
+    if(newScan.hasNextInt()){
+        int num = newScan.nextInt();
+        myStack.push(num);
+        System.out.println(num);
+    }
+    if(newScan.next().equals("+")){
+        value2 = myStack.pop();
+        value1 = myStack.pop();
+        finalResult = value1+value2;
+        myStack.push(finalResult);
+    }
+    if(newScan.next().equals("-")){
+        value2 = myStack.pop();
+        value1 = myStack.pop();
+        finalResult = value1-value2;
+        myStack.push(finalResult);
+    }
+    if(newScan.next().equals("/")){
+        value2 = myStack.pop();
+        value1 = myStack.pop();
+        finalResult = value1/value2;
+        myStack.push(finalResult);
+    }
+    if(newScan.next().equals("*")){
+        value2 = myStack.pop();
+        value1 = myStack.pop();
+        finalResult = value1*value2;
+        myStack.push(finalResult);
 
-            }
+    }
+}
+
+
 
 
             System.out.println(finalResult);
